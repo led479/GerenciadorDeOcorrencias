@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorDeOcorrencias", "GerenciadorDeOcorrencias\GerenciadorDeOcorrencias.csproj", "{AEF3D6B4-7EEF-4761-90CE-65AB262DAFAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcorrenciasTest", "OcorrenciasTest\OcorrenciasTest.csproj", "{A6AFAFB8-3EE6-4778-ADBF-325D92C4B370}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEF3D6B4-7EEF-4761-90CE-65AB262DAFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF3D6B4-7EEF-4761-90CE-65AB262DAFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF3D6B4-7EEF-4761-90CE-65AB262DAFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF3D6B4-7EEF-4761-90CE-65AB262DAFAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6AFAFB8-3EE6-4778-ADBF-325D92C4B370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6AFAFB8-3EE6-4778-ADBF-325D92C4B370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6AFAFB8-3EE6-4778-ADBF-325D92C4B370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6AFAFB8-3EE6-4778-ADBF-325D92C4B370}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B02AC93F-47B1-4281-9476-F5FA81832FCC}
+	EndGlobalSection
+EndGlobal
