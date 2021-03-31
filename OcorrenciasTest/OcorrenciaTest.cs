@@ -17,6 +17,8 @@ namespace OcorrenciasTest
             ctrl = OcorrenciasController.GetInstance();
         }
 
+        //TODO: Testar se a construção da entidade ocorrencia está setando corretamente properties
+
         [Fact]
         public void DeveAdicionarOcorrenciaNoProjeto()
         {
@@ -28,6 +30,7 @@ namespace OcorrenciasTest
             Assert.Equal(EstadoOcorrenciaEnum.ABERTA, ocorrencia.Estado);
             Assert.Equal(responsavel, ocorrencia.Responsavel);
             Assert.Contains(ocorrencia, projeto.Ocorrencias);
+            //TODO: checar se tipo da ocorrencia é nulo
         }
 
         [Fact]
@@ -68,6 +71,7 @@ namespace OcorrenciasTest
         {
             var (empresa, projeto, responsavel) = TestHelper.CreateEmpresaProjetoFuncionario();
             // Adiciona 10 ocorrências
+            //TODO: extrair criação de X ocorrencias para helper
             for (int i = 0; i < 10; i++)
             {
                 var ocorrencia = new Ocorrencia { Resumo = $"Falha no momento de empilhar {i}" };
@@ -77,10 +81,11 @@ namespace OcorrenciasTest
             var ocorrencia11 = new Ocorrencia { Resumo = "Falha no momento de empilhar" };
 
             Assert.Throws<ApplicationException>(() =>   ctrl.AddOcorrencia(ocorrencia11, projeto.Id, responsavel.Id));
+            //TODO: checar se a lista contém 10 ocorrencias
         }
 
         [Fact]
-        public void MudaResponsavelDeOcorrencia()
+        public void MudaResponsavelDaOcorrencia()
         {
             var (empresa, projeto, responsavel) = TestHelper.CreateEmpresaProjetoFuncionario();
             var ocorrencia = new Ocorrencia { Resumo = "Falha no momento de empilhar" };
@@ -106,6 +111,7 @@ namespace OcorrenciasTest
             FuncionariosController.GetInstance().AddFuncionario(novoResponsavel, empresa.Id);
 
             Assert.Throws<ApplicationException>(() =>   ctrl.MudaResponsavel(ocorrencia.Id, novoResponsavel.Id));
+            //TODO: checar se responsavel original manteve a ocorrencia
         }
 
         [Fact]
@@ -125,6 +131,7 @@ namespace OcorrenciasTest
         {
             var (empresa, projeto, responsavel) = TestHelper.CreateEmpresaProjetoFuncionario();
             // Adiciona 9 ocorrências
+            // Extrair para helper
             for (int i = 0; i < 9; i++)
             {
                 var ocorrencia = new Ocorrencia { Resumo = $"Falha no momento de empilhar {i}" };
@@ -185,6 +192,7 @@ namespace OcorrenciasTest
             ctrl.FechaOcorrencia(ocorrencia.Id);
 
             Assert.Throws<ApplicationException>(() =>   ctrl.MudaPrioridade(ocorrencia.Id, PrioridadeOcorrenciaEnum.BAIXA));
+            //TODO: checar se manteve prioridade original
         }
     }
 }

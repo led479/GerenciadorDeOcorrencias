@@ -17,5 +17,9 @@ namespace OcorrenciasTest
 
             Assert.Contains(empresa, EmpresasController.GetInstance().Empresas);
         }
+
+        //TODO: Testar sem nenhuma empresa
+
+        //TODO: Testar com duas empresas
     }
 }

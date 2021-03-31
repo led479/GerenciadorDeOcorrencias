@@ -36,6 +36,7 @@ namespace OcorrenciasTest
             var funcionario = new Funcionario();
 
             Assert.Throws<ApplicationException>(() => ctrl.AddFuncionario(funcionario, empresa.Id));
+            // TODO: Verificar se a lista de funcionários está vazia
         }
 
         [Fact]
@@ -44,6 +45,7 @@ namespace OcorrenciasTest
             var funcionario = new Funcionario { Nome = "Bruno" };
 
             Assert.Throws<ApplicationException>(() => ctrl.AddFuncionario(funcionario, "-1"));
+            // TODO: Verificar se a lista de funcionários está vazia
         }
     }
 }
