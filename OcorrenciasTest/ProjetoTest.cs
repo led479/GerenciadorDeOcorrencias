@@ -36,7 +36,7 @@ namespace OcorrenciasTest
             var projeto = new Projeto();
 
             Assert.Throws<ApplicationException>(() => ctrl.AddProjeto(projeto, empresa.Id));
-            // TODO: Verificar se a lista de projetos está vazia
+            Assert.NotNull(ctrl.Projetos);
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace OcorrenciasTest
             var projeto = new Projeto { Nome = "Empilhadeira" };
 
             Assert.Throws<ApplicationException>(() => ctrl.AddProjeto(projeto, "-1"));
-            // TODO: Verificar se a lista de projetos está vazia
+            Assert.NotNull(ctrl.Projetos);
         }
     }
 }

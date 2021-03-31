@@ -30,22 +30,22 @@ namespace OcorrenciasTest
             Assert.Contains(funcionario, ctrl.Funcionarios);
         }
 
-        [Fact]
+        [Fact] //Teste novo
         public void NaoDeveAdicionarFuncionarioSemNome()
         {
             var funcionario = new Funcionario();
 
             Assert.Throws<ApplicationException>(() => ctrl.AddFuncionario(funcionario, empresa.Id));
-            // TODO: Verificar se a lista de funcionários está vazia
+            Assert.NotNull(ctrl.Funcionarios);
         }
 
-        [Fact]
+        [Fact] //Teste novo
         public void NaoDeveAdicionarFuncionarioEmEmpresaInexistente()
         {
             var funcionario = new Funcionario { Nome = "Bruno" };
 
             Assert.Throws<ApplicationException>(() => ctrl.AddFuncionario(funcionario, "-1"));
-            // TODO: Verificar se a lista de funcionários está vazia
+            Assert.NotNull(ctrl.Funcionarios);
         }
     }
 }

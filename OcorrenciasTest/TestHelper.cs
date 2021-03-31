@@ -23,5 +23,14 @@ namespace OcorrenciasTest
 
             return (empresa, projeto, responsavel);
         }
+
+        public static void CreateOcorrencias(int count, string projetoId, string responsavelId)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ocorrencia = new Ocorrencia { Resumo = $"Falha no momento de empilhar {i}" };
+                OcorrenciasController.GetInstance().AddOcorrencia(ocorrencia, projetoId, responsavelId);
+            }
+        }
     }
 }

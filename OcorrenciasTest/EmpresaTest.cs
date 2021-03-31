@@ -18,8 +18,23 @@ namespace OcorrenciasTest
             Assert.Contains(empresa, EmpresasController.GetInstance().Empresas);
         }
 
-        //TODO: Testar sem nenhuma empresa
+        [Fact] // Teste novo
+        public void ListaDeveExistirMesmoSemNenhumaEmpresa()
+        {
+            Assert.NotNull(EmpresasController.GetInstance().Empresas);
+        }
 
-        //TODO: Testar com duas empresas
+        [Fact] // Teste novo
+        public void DeveAdicionarDuasEmpresas()
+        {
+            var empresa = new Empresa { Nome = "Casas Bahia" };
+            var empresa2 = new Empresa { Nome = "Casas Bahia 2" };
+
+            EmpresasController.GetInstance().AddEmpresa(empresa);
+            EmpresasController.GetInstance().AddEmpresa(empresa2);
+
+            Assert.Contains(empresa, EmpresasController.GetInstance().Empresas);
+            Assert.Contains(empresa2, EmpresasController.GetInstance().Empresas);
+        }
     }
 }

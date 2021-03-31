@@ -17,7 +17,18 @@ namespace OcorrenciasTest
             ctrl = OcorrenciasController.GetInstance();
         }
 
-        //TODO: Testar se a construção da entidade ocorrencia está setando corretamente properties
+        [Fact] // Teste novo
+        public void CriaOcorrenciaCorretamente()
+        {
+            var ocorrencia = new Ocorrencia { Resumo = "Falha no momento de empilhar" };
+
+            Assert.Equal(EstadoOcorrenciaEnum.ABERTA, ocorrencia.Estado);
+            Assert.Equal(TipoOcorrenciaEnum.TAREFA, ocorrencia.Tipo);
+            Assert.Equal(PrioridadeOcorrenciaEnum.ALTA, ocorrencia.Prioridade);
+            Assert.Null(ocorrencia.Responsavel);
+            Assert.NotNull(ocorrencia.Id);
+            Assert.NotNull(ocorrencia.Resumo);
+        }
 
         [Fact]
         public void DeveAdicionarOcorrenciaNoProjeto()
@@ -30,7 +41,6 @@ namespace OcorrenciasTest
             Assert.Equal(EstadoOcorrenciaEnum.ABERTA, ocorrencia.Estado);
             Assert.Equal(responsavel, ocorrencia.Responsavel);
             Assert.Contains(ocorrencia, projeto.Ocorrencias);
-            //TODO: checar se tipo da ocorrencia é nulo
         }
 
         [Fact]
@@ -70,18 +80,15 @@ namespace OcorrenciasTest
         public void ResponsavelPodeTerNoMaximoDezOcorrenciasAbertas()
         {
             var (empresa, projeto, responsavel) = TestHelper.CreateEmpresaProjetoFuncionario();
-            // Adiciona 10 ocorrências
-            //TODO: extrair criação de X ocorrencias para helper
-            for (int i = 0; i < 10; i++)
-            {
-                var ocorrencia = new Ocorrencia { Resumo = $"Falha no momento de empilhar {i}" };
-                ctrl.AddOcorrencia(ocorrencia, projeto.Id, responsavel.Id);
-            }
+            TestHelper.CreateOcorrencias(10, projeto.Id, responsavel.Id);
 
             var ocorrencia11 = new Ocorrencia { Resumo = "Falha no momento de empilhar" };
 
-            Assert.Throws<ApplicationException>(() =>   ctrl.AddOcorrencia(ocorrencia11, projeto.Id, responsavel.Id));
-            //TODO: checar se a lista contém 10 ocorrencias
+            var countAnterior = ctrl.Ocorrencias.Count;
+            Assert.Throws<ApplicationException>(() => ctrl.AddOcorrencia(ocorrencia11, projeto.Id, responsavel.Id));
+            var countPosterior = ctrl.Ocorrencias.Count;
+
+            Assert.Equal(countAnterior, countPosterior);
         }
 
         [Fact]
@@ -111,7 +118,7 @@ namespace OcorrenciasTest
             FuncionariosController.GetInstance().AddFuncionario(novoResponsavel, empresa.Id);
 
             Assert.Throws<ApplicationException>(() =>   ctrl.MudaResponsavel(ocorrencia.Id, novoResponsavel.Id));
-            //TODO: checar se responsavel original manteve a ocorrencia
+            Assert.Contains(ocorrencia, responsavel.Ocorrencias);
         }
 
         [Fact]
@@ -130,13 +137,8 @@ namespace OcorrenciasTest
         public void PodeAdicionarMaisDeDezDesdeQueEstejaFechada()
         {
             var (empresa, projeto, responsavel) = TestHelper.CreateEmpresaProjetoFuncionario();
-            // Adiciona 9 ocorrências
-            // Extrair para helper
-            for (int i = 0; i < 9; i++)
-            {
-                var ocorrencia = new Ocorrencia { Resumo = $"Falha no momento de empilhar {i}" };
-                ctrl.AddOcorrencia(ocorrencia, projeto.Id, responsavel.Id);
-            }
+
+            TestHelper.CreateOcorrencias(9, projeto.Id, responsavel.Id);
             var ocorrencia10 = new Ocorrencia { Resumo = "Falha no momento de empilhar" };
             ctrl.AddOcorrencia(ocorrencia10, projeto.Id, responsavel.Id);
             ctrl.FechaOcorrencia(ocorrencia10.Id);
@@ -190,9 +192,10 @@ namespace OcorrenciasTest
             var ocorrencia = new Ocorrencia { Resumo = "Falha no momento de empilhar" };
             ctrl.AddOcorrencia(ocorrencia, projeto.Id, responsavel.Id);
             ctrl.FechaOcorrencia(ocorrencia.Id);
+            var prioridadeOriginal = ocorrencia.Prioridade;
 
             Assert.Throws<ApplicationException>(() =>   ctrl.MudaPrioridade(ocorrencia.Id, PrioridadeOcorrenciaEnum.BAIXA));
-            //TODO: checar se manteve prioridade original
+            Assert.Equal(prioridadeOriginal, ocorrencia.Prioridade); // Prioridade default = ALTA
         }
     }
 }
